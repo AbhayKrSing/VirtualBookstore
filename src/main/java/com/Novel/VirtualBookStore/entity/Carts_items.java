@@ -24,6 +24,7 @@ public class Carts_items {
 	@JoinColumn(name="bookId",nullable = false)
 	private  Books book;
 	
+	private int quantity;
 	
 	//getter
 	public UUID getId() {
@@ -35,6 +36,9 @@ public class Carts_items {
 	public Books getBook() {
 		return book;
 	}
+	public int getQuantity() {
+		return quantity;
+	}
 	
 	//setter
 	
@@ -44,6 +48,10 @@ public class Carts_items {
 	
 	public void setBook(Books book) {
 		this.book = book;
+	}
+	
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 	
 }
