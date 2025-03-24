@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.Novel.VirtualBookStore.Service.Carts_itemService;
 import com.Novel.VirtualBookStore.entity.Carts_items;
+import com.Novel.VirtualBookStore.util.CartBody;
 
 @RestController
 @RequestMapping("/api/cart_items")  //cart items can exist even without user as well
@@ -19,8 +20,8 @@ public class Cart_ItemsController {
 	Carts_itemService carts_itemService;
 	
 	@PostMapping
-    public Carts_items saveCartItemsAfterOrder(@RequestBody Carts_items Carts_items,@RequestParam UUID cartId) {
-		return carts_itemService.saveCartItem(Carts_items,cartId);
+    public Carts_items saveCartItemsAfterOrder(@RequestBody CartBody cartBody) {
+		return carts_itemService.saveCartItem(cartBody);
 	}
 	
     

@@ -8,6 +8,7 @@ import com.Novel.VirtualBookStore.entity.Books;
 import com.Novel.VirtualBookStore.entity.Carts;
 import com.Novel.VirtualBookStore.entity.Carts_items; // Assuming this is your CartItems entity
 import com.Novel.VirtualBookStore.entity.User;
+import com.Novel.VirtualBookStore.util.CartBody;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,14 +19,19 @@ public class Carts_itemService {
 
     @Autowired
     private CartItemsRepository cartItemsRepository;
+    
+    @Autowired
     private CartsService cartsService;
+    @Autowired
     private BooksService booksService;
     // Save a CartItem
-    public Carts_items saveCartItem(Carts_items carts_items,UUID cart_id) {
-    	Carts cart = cartsService.getCartById(cart_id);
-    	Books book=booksService.getBookById(carts_items.getBook().getId());
+    public Carts_items saveCartItem(CartBody cartbody) {
+    	Carts_items carts_items=new Carts_items();
+    	Carts cart = cartsService.getCartByUserId(cartbody.getUserId());
+    	Books book=booksService.getBookById(cartbody.getBookId());
     	carts_items.setBook(book);
     	carts_items.setCart(cart);
+    	carts_items.setQuantity(cartbody.getQuantity());
         return cartItemsRepository.save(carts_items);
     }
 
