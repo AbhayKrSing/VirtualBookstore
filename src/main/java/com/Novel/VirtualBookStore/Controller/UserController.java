@@ -14,6 +14,9 @@ import java.util.UUID;
 @RequestMapping("/api/user")
 public class UserController {
 
+	
+	//to-do: we will use this Authentication authentication = SecurityContextHolder.getContext().getAuthentication(); if needed later
+	
     @Autowired
     private UserService userService;
     @Autowired

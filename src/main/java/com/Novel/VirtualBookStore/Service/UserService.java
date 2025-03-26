@@ -3,14 +3,10 @@ package com.Novel.VirtualBookStore.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.Novel.VirtualBookStore.entity.Carts;
 import com.Novel.VirtualBookStore.entity.User; // Assuming this is your User entity
 import com.Novel.VirtualBookStore.RepositoryInterface.UserRepository; // Assuming this is your UserRepository
-
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;

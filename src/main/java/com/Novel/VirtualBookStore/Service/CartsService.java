@@ -43,7 +43,7 @@ public class CartsService {
     
     public Carts getCartByUserId(UUID id){
     	//DTO approach is best to solve this issue
-    	User user=userService.getUserById(id); //We need to comment-in in order to work this //Why we need to comment-in?? below explain
+    	userService.getUserById(id); //We need to comment-in in order to work this //Why we need to comment-in?? below explain
 		return cartsRepository.findByUserId(id);
     }
 }

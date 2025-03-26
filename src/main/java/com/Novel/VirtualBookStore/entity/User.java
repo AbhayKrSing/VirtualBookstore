@@ -1,7 +1,8 @@
 package com.Novel.VirtualBookStore.entity;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,6 +24,8 @@ public class User {
    @Column(nullable = false)
    private String password;
    
+   @Column(nullable = false)
+   private List<String> role=new ArrayList<>();
    
    //getter
    public UUID getId() {
@@ -37,6 +40,9 @@ public class User {
    public String getPassword() {
 	return password;
    }
+   public List<String> getRole() {
+	return role;
+  }
    //setter
    public void setUsername(String username) {
 	this.username = username;
@@ -47,6 +53,8 @@ public class User {
    public void setPassword(String password) {
 	this.password = password;
    }
-   
+   public void setRole(String role) {
+	 this.role.add(role);
+  }
    
 }

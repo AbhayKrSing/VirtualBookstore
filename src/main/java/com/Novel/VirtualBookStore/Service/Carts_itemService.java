@@ -7,7 +7,6 @@ import com.Novel.VirtualBookStore.RepositoryInterface.CartItemsRepository;
 import com.Novel.VirtualBookStore.entity.Books;
 import com.Novel.VirtualBookStore.entity.Carts;
 import com.Novel.VirtualBookStore.entity.Carts_items; // Assuming this is your CartItems entity
-import com.Novel.VirtualBookStore.entity.User;
 import com.Novel.VirtualBookStore.util.CartBody;
 
 import java.util.List;
