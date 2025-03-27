@@ -2,6 +2,7 @@ package com.Novel.VirtualBookStore.entity;
 
 import java.util.UUID;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -16,11 +17,11 @@ public class Carts_items {
 	@GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 	@JoinColumn(name="cartId",nullable = false)
 	private Carts cart;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 	@JoinColumn(name="bookId",nullable = false)
 	private  Books book;
 	

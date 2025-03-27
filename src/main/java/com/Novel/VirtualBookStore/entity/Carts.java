@@ -3,6 +3,7 @@ package com.Novel.VirtualBookStore.entity;
 import java.util.Date;
 import java.util.UUID;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -22,9 +23,9 @@ public class Carts {
 	@Column(nullable = false)
 	private Date createdAt;
 	
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY ,cascade = CascadeType.ALL)
 	@JoinColumn(name="UserId",nullable = false,unique = true)
-	private User user;
+	private User user;               //techinally we need to put cart into user.
 	
 	
 	//getter

@@ -3,6 +3,7 @@ package com.Novel.VirtualBookStore.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -28,10 +29,11 @@ public class SecurityConfig {
     	http.authorizeHttpRequests(auth->auth
     			.requestMatchers(
     	                "/api/cart_items", 
-    	                "/h2-console/**", 
-    	                "/register",       
+    	                "/h2-console/**",      
     	                "/public/**"// Any sub-paths
     	            ).permitAll()
+    			.requestMatchers(HttpMethod.GET, "/api/user","/api/user/email/**","/api/user/paginated","/api/user/count").hasRole("ADMIN")
+    			.requestMatchers(HttpMethod.DELETE,"/api/user/*").hasRole("ADMIN")
                 .anyRequest().authenticated())
 //    	   .formLogin(form -> form
 //                .loginPage("/login")  //If you go to this route it will give login page[custom login page]
@@ -43,7 +45,7 @@ public class SecurityConfig {
                 .permitAll()
             )
             .csrf(csrf -> csrf
-                .ignoringRequestMatchers("/h2-console/**","/public/**")
+                .ignoringRequestMatchers("/h2-console/**","/public/**","/api/user")
             )
             .headers(headers -> headers.disable()
             ).userDetailsService(customUserDetailsService);

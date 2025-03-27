@@ -22,7 +22,7 @@ public class UserCartService {
 	    
 	    public User saveUserWithCart(User user) {
 	    	user.setPassword(passwordEncoder.encode(user.getPassword()));
-	    	user.setRole("User");
+	    	user.setRole("USER");
 	        User createdUser = userService.saveUser(user);
 	        Carts carts = new Carts();
 	        carts.setCreatedAt(new Date());

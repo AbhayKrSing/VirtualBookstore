@@ -5,6 +5,7 @@ package com.Novel.VirtualBookStore.entity;
 import java.util.Date;
 import java.util.UUID;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -21,7 +22,7 @@ public class Orders {
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private UUID id;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY ,cascade = CascadeType.ALL)
 	@JoinColumn(name = "userId", nullable = false)  //for database perspective only[means in database foreign key named userId is added]
 	private User user;  //for java code so that we can travel directionally or bi-directionally
 	

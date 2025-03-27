@@ -23,12 +23,20 @@ public class CustomUserDetailsService implements UserDetailsService {
 			throw new UsernameNotFoundException(email);
 		}
 		
+		String userRole="USER";
+		for(String str:user.getRole()) {  //generally it runs only for 3-4 times maximum hence O(1) operation
+			if(str.equals("ADMIN")) {
+				userRole="ADMIN";
+				break;
+			}
+		}
+		
 		  
 		
 		return new org.springframework.security.core.userdetails.User(
 	            user.getUsername(),
 	            user.getPassword(),
-	            AuthorityUtils.createAuthorityList(user.getRole())
+	            AuthorityUtils.createAuthorityList("ROLE_"+userRole)
 	     );
 	}
 
