@@ -50,10 +50,9 @@ public class PublicController {
 	 @PostMapping("/login")
 	 public ResponseEntity<String> loginUser(@RequestBody loginBody login) { //we will send token here instead of credentials
 		 try{
-	            authenticationManager.authenticate(
+	           Authentication authentication = authenticationManager.authenticate(
 	                    new UsernamePasswordAuthenticationToken(login.getEmail(), login.getPassword()));
 //	            UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUserName());  //i will try to achieve this using security context
-	            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 	            String jwt = jwtUtil.generateToken(authentication.getName());  //creating token using userName as a data
 	            return new ResponseEntity<>(jwt, HttpStatus.OK);
 	        }catch (Exception e){

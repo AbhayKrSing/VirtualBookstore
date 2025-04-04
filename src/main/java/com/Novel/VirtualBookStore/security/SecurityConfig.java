@@ -13,7 +13,10 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.bind.annotation.CrossOrigin;
+
+import com.Novel.VirtualBookStore.Jwt.JwtFilter;
 
 @Configuration         //to tell spring that this is configuration class
 @EnableWebSecurity     //to use security feature of spring security
@@ -21,7 +24,9 @@ public class SecurityConfig {
 
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
-
+    
+    @Autowired
+    private JwtFilter jwtFilter;
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -58,6 +63,7 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable()  //disable csrf in all endpoints.[will change this later]
             )
             .headers(headers -> headers.disable()
+            		.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
             ).userDetailsService(customUserDetailsService);
             
     	
