@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -14,6 +13,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 @Configuration         //to tell spring that this is configuration class
 @EnableWebSecurity     //to use security feature of spring security
@@ -26,7 +26,7 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
+    
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {  //extends WebSecurityConfigurerAdapter @deprecated
         
@@ -41,14 +41,8 @@ public class SecurityConfig {
     			.requestMatchers(HttpMethod.GET, "/api/user","/api/user/email/**","/api/user/paginated","/api/user/count").hasRole("ADMIN")
     			.requestMatchers(HttpMethod.DELETE,"/api/user/**").hasRole("ADMIN")
                 .anyRequest().authenticated())
-//    	   .formLogin(form -> form
-//                .loginPage("/login")  //If you go to this route it will give login page[custom login page]
-//                .permitAll()
-//            )
-//    	   .formLogin(Customizer.withDefaults())  //for default login page
-//    	    .httpBasic(Customizer.withDefaults())  //implement basic auth [auth in which we have send credentials in header].
     	    .formLogin(form->form.disable())   //disable form login
-    	    .httpBasic(Customizer.withDefaults()) // Keep basic auth as fallback
+    	    .httpBasic(basic->basic.disable()) // disabling basic auth
     	    .logout(logout -> logout
                     .logoutUrl("/api/user/logout")   //when this api will hit spring automatically handle this.[post request hai]
                     .logoutSuccessHandler((request, response, authentication) -> {
@@ -56,17 +50,12 @@ public class SecurityConfig {
                         response.getWriter().write("Successfully logout");
                         response.getWriter().flush();
                     })
-                    .invalidateHttpSession(true)
-                    .deleteCookies("JSESSIONID")
                     .permitAll()
                 )
                 .sessionManagement(session -> session
-                    .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED) // Sessions created when needed
-                    .maximumSessions(1)
-                    .maxSessionsPreventsLogin(false)
+                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // disabling session because of jwt
                 )
-            .csrf(csrf -> csrf
-                .ignoringRequestMatchers("/h2-console/**","/public/**","/api/user","/api/user/login","/api/user/logout")
+            .csrf(csrf -> csrf.disable()  //disable csrf in all endpoints.[will change this later]
             )
             .headers(headers -> headers.disable()
             ).userDetailsService(customUserDetailsService);
