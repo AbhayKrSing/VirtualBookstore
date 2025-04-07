@@ -12,6 +12,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/user")
+@CrossOrigin(origins = "*")
 public class UserController {
 
 	
@@ -48,8 +49,9 @@ public class UserController {
 
     // Delete a User by ID
     @DeleteMapping("/{id}")
-    public String deleteUser(@PathVariable UUID id) {
-        return userService.deleteUser(id);
+    public User deleteUser(@PathVariable UUID id) {
+//        return userService.deleteUser(id);
+    	return userCartService.deleteUserWithCard(id);
     }
     
     //Get a User by Email
