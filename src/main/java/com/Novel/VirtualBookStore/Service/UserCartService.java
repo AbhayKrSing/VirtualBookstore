@@ -1,6 +1,7 @@
 package com.Novel.VirtualBookStore.Service;
 
 import java.util.Date;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -31,6 +32,12 @@ public class UserCartService {
 	        return createdUser;
 	    }
 	    
+	    
+	    public String deleteUserWithCart(UUID id) {  //It takes id of User
+		 Carts cart=cartsService.getCartByUserId(id);
+		 cartsService.deleteCart(cart.getId());
+		 return userService.deleteUser(id);
+		}
 	    
 
 	
