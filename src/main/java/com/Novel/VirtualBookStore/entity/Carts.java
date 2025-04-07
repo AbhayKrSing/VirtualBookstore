@@ -23,8 +23,8 @@ public class Carts {
 	@Column(nullable = false)
 	private Date createdAt;
 	
-	@OneToOne(fetch = FetchType.LAZY ,cascade = CascadeType.ALL)
-	@JoinColumn(name="UserId",nullable = false,unique = true)
+	@OneToOne(fetch = FetchType.EAGER ,cascade = CascadeType.ALL)
+	@JoinColumn(name="UserId",nullable = false,unique = true )
 	private User user;               //techinally we need to put cart into user.
 	
 	
