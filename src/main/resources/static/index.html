@@ -3,60 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript" src="angular.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
 <script type="text/javascript" src="utils.js"></script>
 <link rel="stylesheet" href="style.css">
 </head>
 <body ng-controller="Mycontroller">
 
-<div class="grid-container" >
-  <div class="card" ng-repeat="user in Users">
-    <div class="card-header">{{user.username}}
-      <i class="icon delete-icon" ng-click="deleteUser(user)" title="Delete User"></i>
-    </div>
-    <div class="card-body">
-      <div class="card-field"><i class="icon email-icon" ng-click="editUser(user)"></i>{{user.email}}</div>
-      <div class="card-field"><i class="icon role-icon"></i>{{user.role.length>1?user.role[1]:user.role[0]}}</div>
-    </div>
-  </div>
-</div>
-
-<!-- Form to Add -->
-<form  ng-submit="addData()">
-   <div>
-   username   
-   <input ng-model="formData.username" name="username" required>
-   </div>
-   <div>
-   email   
-   <input ng-model="formData.email" name="email" required>
-   </div>
-   <div>
-   password
-   <input ng-model="formData.password" name="password" required>   
-   </div>
-   <button type="submit">Submit</button>
-</form>
-
-
-<!-- Modal to edit -->
-<form ng-show="editingUser" ng-submit="updateUser()">
-   <h3>Edit User</h3>
-   <div>
-     username   
-     <input ng-model="currentEditUser.username" name="username" required>
-   </div>
-   <div>
-     email   
-     <input ng-model="currentEditUser.email" name="email" type="email" required>
-   </div>
-   <div>
-     password
-     <input ng-model="currentEditUser.password" name="password" type="password" placeholder="Leave blank to keep current">   
-   </div>
-   <button type="submit">Update</button>
-   <button type="button" ng-click="cancelEdit()">Cancel</button>
-</form>
+<nav>
+    <ul>
+      <li><a href="#!/users">View Users</a></li>
+      <li><a href="#!/adduser">Add User</a></li>
+    </ul>
+  </nav>
+  
+  <div ng-view></div>
 
 </body>
 </html>

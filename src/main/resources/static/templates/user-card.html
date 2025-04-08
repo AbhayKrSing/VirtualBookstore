@@ -1,0 +1,10 @@
+
+  <div class="card " >
+    <div class="card-header">{{user.username}}
+      <i class="icon delete-icon" ng-click="onDelete(user)" title="Delete User"></i>
+    </div>
+    <div class="card-body">
+      <div class="card-field"><i class="icon email-icon" ng-click="onEdit(user)"></i>{{user.email}}</div>
+      <div class="card-field"><i class="icon role-icon"></i>{{user.role.length>1?user.role[1]:user.role[0]}}</div>
+    </div>
+  </div>
